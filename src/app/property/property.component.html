@@ -1,0 +1,61 @@
+<div class="d-flex justify-content-center align-items-center container bgiborder">
+  <div>
+    <br/>
+      <input class="form-control mr-sm-4 col-md-12" type="text" placeholder="Enter your City"
+      [(ngModel)]="searchProperty">
+      <br/>
+      <p>Available Properties: {{ (properties | filterProperty:searchProperty)?.length}} </p>
+  </div>
+</div>
+<div>
+
+</div>
+    <br/><br/>
+    <div class="media border p-3 " *ngFor="let property of properties | filterProperty:searchProperty ">
+        <br/><br/>
+        
+        <img [src]="property.cover" [alt]="property.street" class="mr-3 mt-3 rounded-circle" style="width:200px;height:200px">
+        <div class="media-body divcenter">
+          <br/><br/>
+          <h4>{{property.street}}</h4>
+          <h4>{{property.city}}</h4>
+          <p>Price: {{property.price|currency}}</p>
+          <p>{{property.description}}</p>
+          <button type="button" class="btn btn-success" style="margin:2%" [routerLink]="['/form']">
+            Book Property
+          </button>
+          
+          <button type="button" class="btn btn-success" style="margin:2%" data-toggle="modal" [attr.data-target]="'#'+property.city">
+            Show Details
+          </button>
+          <!-- The Modal -->
+          <div class="modal fade" [id]="property.city">
+            <div class="modal-dialog">
+              <div class="modal-content">
+              
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">{{property.street}}</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <br/><br/>
+                    <img [src]="property.cover" [alt]="property.street" class="mr-3 mt-3 rounded-circle" style="width:200px;height:200px"> 
+                    <p>Address: {{property.street}}</p>
+                    <p>City: {{property.city}}</p>
+                    <p>Price: {{property.price|currency}}</p>
+                    <p>Description: {{property.description}}</p>
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
